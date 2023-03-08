@@ -4,10 +4,11 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import LibraryMusicOutlinedIcon from '@mui/icons-material/LibraryMusicOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import RssFeedOutlinedIcon from '@mui/icons-material/RssFeedOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut, useSession } from 'next-auth/react';
 import useSpotify from '../hooks/useSpotify';
-import {playlistIdState} from '../atmos/playlistAtom';
+import {playlistIdState} from '../atoms/playlistAtom';
 import {useRecoilState} from 'recoil';
 
 
@@ -26,10 +27,10 @@ function Sidebar() {
     }, [session, spotifyApi])
 
     return (
-        <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide'>
+        <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36'>
             <div className='space-y-4'>
                 <button className='flex item-end space-x-2 hover:text-white' onClick={() => signOut()}>
-                    <HomeOutlinedIcon className='h-7 w-7' />
+                    <LogoutIcon className='h-7 w-7' />
                     <p>Logout</p>
                 </button>
                 <button className='flex item-end space-x-2 hover:text-white'>
@@ -50,7 +51,7 @@ function Sidebar() {
                     <p>Create Playlist</p>
                 </button>
                 <button className='flex item-end space-x-2 hover:text-white'>
-                    <FavoriteBorderOutlinedIcon className='h-7 w-7' />
+                    <FavoriteIcon className='h-7 w-7 text-red-700' />
                     <p>Liked Songs</p>
                 </button>
                 <button className='flex item-end space-x-2 hover:text-white'>
