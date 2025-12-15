@@ -2,6 +2,16 @@ import NextAuth from "next-auth"
 import SpotifyProvider from "next-auth/providers/spotify";
 import spotifyApi, { LOGIN_URL } from "../../../lib/spotify";
 
+// Basic runtime checks to help debug deployment issues (do not log secrets)
+const { NEXTAUTH_URL, NEXTAUTH_SECRET, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
+console.log('NextAuth runtime check - NEXTAUTH_URL:', NEXTAUTH_URL);
+console.log('NextAuth runtime check - NEXTAUTH_SECRET set:', !!NEXTAUTH_SECRET);
+console.log('NextAuth runtime check - SPOTIFY_CLIENT_ID set:', !!SPOTIFY_CLIENT_ID);
+console.log('NextAuth runtime check - SPOTIFY_CLIENT_SECRET set:', !!SPOTIFY_CLIENT_SECRET);
+if (NEXTAUTH_URL && NEXTAUTH_URL.includes('accounts.spotify.com')) {
+  console.error('Misconfigured NEXTAUTH_URL: it points to accounts.spotify.com. Set NEXTAUTH_URL to your app URL, e.g. https://your-app.com');
+}
+
 async function refreshAccessToken(token){
   try{
     spotifyApi.setAccessToken(token.accessToken);
